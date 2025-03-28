@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Карусель фотографий</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .carousel-container {
+            width: 90%;
+            max-width: 600px;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .carousel-wrapper {
+            display: flex;
+            transition: transform 0.3s ease-in-out;
+        }
+        .carousel-item {
+            flex: 0 0 auto;
+            width: 100%;
+            height: auto;
+        }
+        .carousel-item img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+        .carousel-nav {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 0 10px;
+        }
+        .nav-button {
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            outline: none;
+        }
+        .nav-button:hover {
+            background: rgba(0, 0, 0, 0.7);
+        }
+        .dots-container {
+            margin-top: 10px;
+            display: flex;
+            gap: 8px;
+        }
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #bbb;
+            cursor: pointer;
+        }
+        .dot.active {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="carousel-container">
+        <div class="carousel-wrapper" id="carouselWrapper">
+            </div>
+        <div class="carousel-nav">
+            <button class="nav-button" id="prevBtn">❮</button>
+            <button class="nav-button" id="nextBtn">❯</button>
+        </div>
+    </div>
+    <div class="dots-container" id="dotsContainer">
+        </div>
+
+    <script>
+        Telegram.WebApp.ready();
+
+        // Пример массива URL-адресов фотографий (замените на свои)
+        const imageUrls = [
+            "https://via.placeholder.com/600/FF0000/FFFFFF?Text=Photo+1",
+            "https://via.placeholder.com/600/00FF00/FFFFFF?Text=Photo+2",
+            "https://via.placeholder.com/600/0000FF/FFFFFF?Text=Photo+3",
+            "https://via.placeholder.com/600/FFFF00/000000?Text=Photo+4"
+        ];
+
+        const carouselWrapper = document.getElementById('carouselWrapper');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const dotsContainer = document.getElementById('dotsContainer');
+
+        let currentIndex = 0;
+        const itemWidth = 100; // Ширина одного элемента в процентах
+
+        function updateCarousel() {
+            carouselWrapper.style.transform = `translateX(-${currentIndex * itemWidth}%)`;
+            updateDots();
+        }
+
+        function updateDots() {
+            dotsContainer.innerHTML = '';
+            imageUrls.forEach((_, index) => {
+                const dot = document.createElement('div');
+                dot.classList.add('dot');
+                if (index === currentIndex) {
+                    dot.classList.add('active');
+                }
+                dot.addEventListener('click', () => {
+                    currentIndex = index;
+                    updateCarousel();
+                });
+                dotsContainer.appendChild(dot);
+            });
+        }
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % imageUrls.length;
+            updateCarousel();
+        }
+
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + imageUrls.length) % imageUrls.length;
+            updateCarousel();
+        }
+
+        // Добавление изображений в карусель
+        imageUrls.forEach(url => {
+            const carouselItem = document.createElement('div');
+            carouselItem.classList.add('carousel-item');
+            const img = document.createElement('img');
+            img.src = url;
+            carouselItem.appendChild(img);
+            carouselWrapper.appendChild(carouselItem);
+        });
+
+        // Обработчики событий для кнопок навигации
+        nextBtn.addEventListener('click', nextSlide);
+        prevBtn.addEventListener('click', prevSlide);
+
+        // Инициализация карусели и индикаторов
+        updateCarousel();
+    </script>
+</body>
+</html>
