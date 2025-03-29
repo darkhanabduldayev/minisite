@@ -95,9 +95,9 @@
 
         if (initData && initData.start_param) {
             const imageUrls = initData.start_param;
-            console.log("Получен параметр startapp:", startParam);
+            console.log("Получен параметр startapp:", imageUrls);
             // Здесь вы можете использовать полученный параметр для определения дальнейшего поведения вашего мини-приложения
-            document.getElementById('param-display').textContent = `Полученный параметр: ${startParam}`;
+            document.getElementById('param-display').textContent = `Полученный параметр: ${imageUrls}`;
         } else {
             console.log("Параметр startapp не найден.");
             document.getElementById('param-display').textContent = "Параметр не передан.";
