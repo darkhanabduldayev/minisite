@@ -85,12 +85,23 @@
             <button class="nav-button" id="nextBtn">❯</button>
         </div>
     </div>
-    <div class="dots-container" id="dotsContainer">
-        </div>
+    <div class="dots-container" id="dotsContainer"></div>
+    <div id="param-display"></div>
 
     <script>
         Telegram.WebApp.ready();
+        
+        const initData = Telegram.WebApp.initDataUnsafe;
 
+        if (initData && initData.start_param) {
+            const startParam = initData.start_param;
+            console.log("Получен параметр startapp:", startParam);
+            // Здесь вы можете использовать полученный параметр для определения дальнейшего поведения вашего мини-приложения
+            document.getElementById('param-display').textContent = `Полученный параметр: ${startParam}`;
+        } else {
+            console.log("Параметр startapp не найден.");
+            document.getElementById('param-display').textContent = "Параметр не передан.";
+        }
         // Пример массива URL-адресов фотографий (замените на свои)
         const imageUrls = [
             "https://static.ticimax.cloud/cdn-cgi/image/width=800,quality=99/7656/uploads/urunresimleri/buyuk/agent-fusya-kroko-cizme-ecenin-butigi-26c8da.jpeg",
