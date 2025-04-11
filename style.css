@@ -1,0 +1,70 @@
+body {
+     font-family: sans-serif;
+     margin: 0;
+     padding: 0;
+     background-color: #f0f0f0;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+     min-height: 100vh;
+}
+ .carousel-container {
+     width: 90%;
+     max-width: 600px;
+     overflow: hidden;
+     border-radius: 10px;
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+     position: relative;
+}
+ .carousel-wrapper {
+     display: flex;
+     transition: transform 0.3s ease-in-out;
+}
+ .carousel-item {
+     flex: 0 0 auto;
+     width: 100%;
+     height: auto;
+}
+ .carousel-item img {
+     display: block;
+     width: 100%;
+     height: auto;
+}
+ .carousel-nav {
+     display: flex;
+     justify-content: space-between;
+     width: 100%;
+     position: absolute;
+     top: 50%;
+     transform: translateY(-50%);
+     padding: 0 10px;
+}
+ .nav-button {
+     background: rgba(0, 0, 0, 0.5);
+     color: white;
+     border: none;
+     padding: 10px;
+     border-radius: 5px;
+     cursor: pointer;
+     font-size: 16px;
+     outline: none;
+}
+ .nav-button:hover {
+     background: rgba(0, 0, 0, 0.7);
+}
+ .dots-container {
+     margin-top: 10px;
+     display: flex;
+     gap: 8px;
+}
+ .dot {
+     width: 10px;
+     height: 10px;
+     border-radius: 50%;
+     background-color: #bbb;
+     cursor: pointer;
+}
+ .dot.active {
+     background-color: #555;
+}
